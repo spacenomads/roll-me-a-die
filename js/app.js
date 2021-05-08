@@ -1,30 +1,29 @@
 'use strict';
 const SEED = 'En serio?';
 const rollField = document.querySelector('#roll');
+const rollBtn = document.querySelector('#rollThis');
+
+const modifierCalc = {
+  "+": (dice, modifier) => dice + modifier,
+  "-": (dice, modifier) => dice - modifier,
+  "*": (dice, modifier) => dice * modifier,
+  "/": (dice, modifier) => dice / modifier,
+};
 
 function getUserRoll(event) {
-  if (event.isComposing || event.keyCode === 229) {
-    return;
-  }
-  
-  const field = event.currentTarget;
-  const userRoll = field.value;
+  const userRoll = rollField.value;
 
   const tries = userRoll.split('d')[0];
-  const dice = userRoll.match(/[Dd]([0-9]+)/g);
-  const operation = userRoll.match(/[\+-/*]([0-9]+)/g);
-  
-  // '1d100*5'.match(/[Dd](?<dice>[0-9]+)/i).groups
-  
-  if (event.keyCode === 13) {
+  const { dice, operation } = userRoll.match(/[dD](?<dice>[0-9]+)(?<operation>[\+-/*][0-9]+)/i).groups;
+    
     console.group('Roll');
     console.log({tries, dice, operation});
     console.groupEnd();
-  }
+  
 }
 
 
-rollField.addEventListener('keydown', getUserRoll);
+rollBtn.addEventListener('click', getUserRoll);
 
 
 Math.seedrandom(SEED, { entropy: true });
