@@ -1,4 +1,3 @@
-'use strict';
 const SEED = 'En serio?';
 const rollField = document.querySelector('#roll');
 const rollBtn = document.querySelector('#rollThis');
