@@ -9,11 +9,37 @@
 </head>
 <body>
 
-  <div id="graphSt"></div>
-  <div id="graphSeed"></div>
+  <div id="graphSt" class="graph js__graph">
+    <h2 class="graph__title">Sin semilla</h2>
+  </div>
+  <div id="graphSeed" class="graph js__graph">
+    <h2 class="graph__title">Con semilla</h2>
+  </div>
+  <div id="graphMaiden" class="graph js__graph">
+    <h2 class="graph__title">Dice maiden 1</h2>
+  </div>
+  <div id="graphMaiden2" class="graph js__graph">
+    <h2 class="graph__title">Dice maiden 2</h2>
+  </div>
+
+  <table class="stats">
+    <thead>
+      <tr>
+        <td></td>
+        <th>Sin semilla</th>
+        <th>Con semilla</th>
+        <th>Maiden 1</th>
+        <th>Maiden 2</th>
+      </tr>
+    </thead>
+    <tbody class="stats__body js__stats-body">
+      
+    </tbody>
+  </table>
   
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src=//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js></script>
+  <script src="js/vendor/d3.v6.min.js"></script>
+  <script src="js/vendor/lodash.js"></script>
+  <script src=js/vendor/seedrandom.min.js></script>
   <script src="js/graphs.js"></script>
 </body>
 </html>
