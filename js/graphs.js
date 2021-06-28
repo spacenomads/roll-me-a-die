@@ -1,59 +1,27 @@
-'use strict';
+import { MIN_NUMBER } from "./vars.js";
+import { getRandomNumber } from './helpers.js';
+import { getPhrase } from './seed.js';
 
 console.log('🌈');
 const DICE = 100;
 const ROLLS = 100;
-const SEED = 'adk cjksv , dnsvnasNÑLA SLKD JADÑLJALSK FJLAKÑ F';
-const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-const NUMBERS = [1,2,3,4,5,6,7,8,9,0];
-const WORD_SIZE = [3,4,5,10];
-const MIN_NUMBER = 1;
-const WORD_DIVIDER = ' ';
 
 
-function getSize() {
-  const index = getRandomNumber(0, WORD_SIZE.length - 1);
-  return WORD_SIZE[index];
-}
-
-
-function getWord() {
-  const size = getSize()
-  const CHARS = [...NUMBERS, ...LETTERS];
-  const randomLetters = _.shuffle(CHARS);
-  const result = randomLetters.slice(0, size).join('');
-  return result;
-}
-
-
-
-
-function getPhrase() {
-  const words = getSize();
-  const result = [];
-  
-  for (let i = 0; i < words; i++) {
-    result.push(getWord());
-  }
-
-  return result.join(WORD_DIVIDER);
-}
-
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
 
 
 function getRoll(max) {
+  const phrase = getPhrase();
+  Math.seedrandom(phrase, { entropy: true });
   return getRandomNumber(MIN_NUMBER, max);
 }
 
 
+
+
+
 function getRolls() {
   const result = [];
-  const phrase = getPhrase();
-  Math.seedrandom(phrase, { entropy: true });
   for (let i = 0; i < ROLLS; i++) {
     result.push({ id: i, roll: getRoll(DICE) });
   }

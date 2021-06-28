@@ -1,61 +1,39 @@
+import { MODIFIERCALC, ROLL_REGEXP } from './vars.js';
+import { checkRollFormat } from './roll-detection.js';
+import { getUserRoll } from './roll.js';
+import { sum } from './helpers.js';
+import { saveRollHistory } from './history.js';
+
 const SEED = 'En serio?';
 const rollField = document.querySelector('#roll');
 const rollBtn = document.querySelector('#rollThis');
-const ROLL_REGEXP = new RegExp(/[0-9][d][0-9]+([\+\-\*\/][0-9]+)?/);
-
-
-const modifierCalc = {
-  "+": (dice, modifier) => dice + modifier,
-  "-": (dice, modifier) => dice - modifier,
-  "*": (dice, modifier) => dice * modifier,
-  "/": (dice, modifier) => dice / modifier,
-};
+const result = document.querySelector('#result');
 
 
 
 
 
-
-function checkRollFormat(roll) {
-  return ROLL_REGEXP.test(roll);
+function showRoll(data, el) {
+  el.innerHTML = `
+    <h1>${data.result}</h1>
+    <p>
+      <small>[${data.results.join(', ')}] = ${sum(data.results)} ${data.modifier || ''}</small>
+    </p>
+  `;
 }
 
 
-
-
-function getUserRoll(event) {
+function generateRoll() {
   const userRoll = rollField.value.trim().toLowerCase();
-  const isValid = checkRollFormat(userRoll);
-
-  if (isValid) {
-
-    const tries = userRoll.split('d')[0];
-    const { dice, modifier } = userRoll.match(/[d](?<dice>[0-9]+)(?<modifier>[\+\-\/\*][0-9]+)?/i).groups;
-    console.log({isValid, tries, dice, modifier});
-    result.innerHTML = `
-      <p>tirada: ${userRoll}</p>
-      <p>Válida: Sí</p>
-      <p>nº de dados: ${tries}</p>
-      <p>caras: ${dice}</p>
-      <p>modificador: ${modifier || '--'}</p>
-    `;
-  } else {
-    console.log({userRoll, isValid});
-    result.innerHTML = `
-      <p>tirada: ${userRoll}</p>
-      <p>Válida: NO</p>
-      <p>nº de dados: --</p>
-      <p>caras: --</p>
-      <p>modificador: --</p>
-    `;
-  }
+  const rollResult = getUserRoll(userRoll);
+  console.log(rollResult);
+  showRoll(rollResult, result);
+  saveRollHistory(rollResult);
 }
 
+rollBtn.addEventListener('click', generateRoll);
 
-
-
-
-rollBtn.addEventListener('click', getUserRoll);
+// TEST
 
 const rolls = [
   "3d6*6",
@@ -73,10 +51,6 @@ rolls.forEach(roll => {
   const isValid = checkRollFormat(roll);
   console.log(`tirada: ${roll} | Válida: ${isValid ? 'Sí' : 'No'}`);
 });
-
-//Math.seedrandom(SEED, { entropy: true });
-//console.log('> 0.9282578795792454', Math.random());          // Always 0.9282578795792454
-//console.log('> 0.3752569768646784', Math.random());          // Always 0.3752569768646784
 
 
 
