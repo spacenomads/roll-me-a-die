@@ -1,10 +1,9 @@
-import { MODIFIERCALC, ROLL_REGEXP } from './vars.js';
 import { checkRollFormat } from './roll-detection.js';
 import { getUserRoll } from './roll.js';
 import { sum } from './helpers.js';
 import { saveRollHistory } from './history.js';
 
-const SEED = 'En serio?';
+
 const rollField = document.querySelector('#roll');
 const rollBtn = document.querySelector('#rollThis');
 const result = document.querySelector('#result');

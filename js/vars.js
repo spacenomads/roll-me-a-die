@@ -4,7 +4,7 @@ const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const CHARS = [...NUMBERS, ...LETTERS];
 const WORD_SIZE = [3, 4, 5, 10];
-const MODIFIERCALC = {
+const MODIFIER_CALC = {
   "+": (dice, modifier) => dice + modifier,
   "-": (dice, modifier) => dice - modifier,
   "*": (dice, modifier) => dice * modifier,
@@ -20,6 +20,6 @@ export {
   WORD_SIZE,
   WORD_DIVIDER,
   MIN_NUMBER,
-  MODIFIERCALC,
+  MODIFIER_CALC,
   ROLL_REGEXP,
 };

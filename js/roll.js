@@ -1,6 +1,6 @@
 import { checkRollFormat } from "./roll-detection.js";
 import { getRandomNumber, sum } from "./helpers.js";
-import { MIN_NUMBER, MODIFIERCALC } from "./vars.js";
+import { MIN_NUMBER, MODIFIER_CALC } from "./vars.js";
 import { getPhrase } from './seed.js';
 
 
@@ -13,7 +13,7 @@ function applyModifier(total, mod) {
     // TODO; Refactor
     const operator = mod[0];
     const modValue = parseInt(mod.split(mod[0])[1]);
-    result = MODIFIERCALC[operator](total, modValue);
+    result = MODIFIER_CALC[operator](total, modValue);
   }
   return result;
 }
